@@ -1,4 +1,4 @@
-package com.example.rabbitmqlearning.demo8;
+package com.example.rabbitmqlearning.demo9;
 
 import com.example.rabbitmqlearning.utils.RabbitMqUtils;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -9,7 +9,7 @@ import com.rabbitmq.client.DeliverCallback;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class ConsumerB {
+public class ConsumerD {
     private static final String DEAD_EXCHANGE = "dead_exchange";
     private static final String DEAD_QUEUE = "dead_queue";
 
@@ -22,14 +22,14 @@ public class ConsumerB {
 
         channel.queueBind(DEAD_QUEUE, DEAD_EXCHANGE, "lisi");
 
-        System.out.println("消费者B等待接受死信队列的消息......");
+        System.out.println("消费者D等待接受死信队列的消息......");
 
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("消费者B接收到死信队列的消息：" + new String(message.getBody()));
+            System.out.println("消费者D接收到死信队列的消息：" + new String(message.getBody()));
         };
 
         CancelCallback cancelCallback = (consumerTag) -> {
-            System.out.println("消费者B消费消息中断");
+            System.out.println("消费者D消费消息中断");
         };
 
         channel.basicConsume(DEAD_QUEUE, deliverCallback, cancelCallback);
